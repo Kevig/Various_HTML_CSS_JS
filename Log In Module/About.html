@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Create A New Account</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<style type="text/css">
+
+#page { 
+	position: relative; 
+	padding: 10px;
+	width: 400px; 
+	margin-left: auto; 
+	margin-right: auto;
+	// border: 1px solid black;
+} 
+
+html { 
+	font-family: "Century Gothic", Verdana, sans-serif;
+}
+
+h1 { 
+	position: relative; 
+	width: 250px;
+	text-align: left; 
+	// color: white;
+	margin-left: auto;
+	margin-right: auto;
+	// text-shadow: #428AFF  0 0 20px;
+	// font-size: 18pt;
+	color: grey;
+	font-size: 16pt;
+	// border: 1px solid black;
+} 
+
+input { 
+	float: left; 
+	font-size: 10pt;
+	border-bottom: 1px solid silver;
+	border-left: 0px;
+	border-right: 1px solid silver;
+	border-top: 0px;
+	width:125px;
+}
+
+#pageTitle { 
+	position: relative; 
+	width: 400px;  
+	margin-top: 5px; 
+	margin-bottom: 0px; 
+	padding-bottom: 10px;
+	// border: 1px solid black;
+}
+
+#tableBox1 { 
+	position: relative; 
+	width: 400px; 
+	margin-top: 15px; 
+	margin-bottom: 5px; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.inputFields { 
+	position: relative; 
+	margin: 0 auto; 
+	width: 400px; 
+	text-align: right;
+	font-size: 10pt;
+	// border: 1px solid black;
+}
+
+#formSubmit { 
+	position: relative; 
+	width: 100px; 
+	margin-top: -1px;
+	margin-left: 167px; 
+	margin-top: 5px; 
+	-moz-box-shadow: 0 0 10px #B5D5FF;
+	-webkit-box-shadow: 0 0 10px #B5D5FF;
+	box-shadow: 0px 0px 10px #B5D5FF;
+	color: black;
+	background: white;
+}
+
+#formSubmit:disabled {
+	color: silver;
+	opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+
+#passStr { 
+	position: relative; 
+	display: none; 
+	color: white; 
+	font-size: 10pt; 
+}
+
+.column1 { 
+	width:160px;
+	// border: 1px solid black;
+}
+
+.column2 { 
+	width:150px;
+	// border: 1px solid black;
+}
+
+.column3 { 
+	width:80px; 
+	text-align: left;
+	// border: 1px solid black;
+}
+
+#userNameReq, #emailReq, #passwordReq, #confPassReq {
+	margin-left: 128px;
+	margin-right: 70px;
+	margin-bottom: 10px;
+	padding: 5px;
+	padding-bottom: 10px;
+	text-align: left;
+	font-size: 8pt;
+	border: 1px solid #B5D5FF;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 10px #B5D5FF;
+	-webkit-box-shadow: 0 0 10px #B5D5FF;
+	box-shadow: 0px 0px 10px #B5D5FF;
+	display: none;
+}
+
+</style>
+<script type="text/javascript">
+
+	// Options for validations
+	var passLength = 8;
+	var nameLength = 6;
+	
+	// Validation Controls
+	var userNameValidate = false;
+	var emailValidate = false;
+	var passwordValidate = false;
+	var passConfirmValidate = false;
+	var isUnique = false;
+	
+	// Information variables
+	var userNameReqText = '<strong>A User Name MUST:</strong><br><p>&nbsp;&nbsp;&nbsp;&nbsp;Contain ATLEAST '  + nameLength + ' Characters<br>&nbsp;&nbsp;&nbsp;&nbsp;Contain NO SPACES<br>&nbsp;&nbsp;&nbsp;&nbsp;Be UNIQUE</p>';							
+	var emailReqText = '<strong>An Email Address MUST:</strong><br><p>&nbsp;&nbsp;&nbsp;&nbsp;Be a valid Email Address</p>';
+	var passwordReqText = '<strong>A Password MUST:</strong><br><p>&nbsp;&nbsp;&nbsp;&nbsp;Contain ATLEAST ' + passLength + ' Characters</p><p><strong>A Password CAN:</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;Contain Letters<br>&nbsp;&nbsp;&nbsp;&nbsp;Numbers<br>&nbsp;&nbsp;&nbsp;&nbsp;Special Characters</p>';
+	var confPassReqText = '<strong>Confirm Password MUST:</strong><br><p>&nbsp;&nbsp;&nbsp;&nbsp;Match Password EXACTLY</p>';
+	
+	// effects variables
+	var windowHeight = null;
+	var lastReqBox = null;
+	
+	// Page load events
+	$(document).ready(function() 
+	{
+		// $(window).trigger('resize');
+		setInfoTexts();
+	});
+	
+	// Browser window resize event
+	// captures window height
+	// $(window).resize(function() 
+	// {
+	//	windowHeight = $(window).height();
+	//	repositionElements();
+	// });
+	
+	// Set info elements text
+	function setInfoTexts()
+	{
+		document.getElementById("userNameReq").innerHTML = userNameReqText;
+		document.getElementById("emailReq").innerHTML = emailReqText;
+		document.getElementById("passwordReq").innerHTML = passwordReqText;
+		document.getElementById("confPassReq").innerHTML = confPassReqText;
+	}
+	
+	// Reposition main "page" element
+	function repositionElements()
+	{
+		elementHeight = document.getElementById("page").offsetHeight;
+		topAnchor = ((windowHeight / 2) - (elementHeight / 2)) - (elementHeight / 4);
+		
+		if(topAnchor < 0){topAnchor = 0;}
+		
+		document.getElementById("page").style.top = topAnchor + "px";
+	}
+	
+	// Validate UserName logic / processes
+	function validateUserName(elementId)
+	{
+		// Processes for validation
+		document.getElementById("userNameValidation").width = "16";
+		document.getElementById("userNameValidation").height = "16";
+		
+		if (isUnique)
+		{
+			if (checkLength(elementId, nameLength) && !hasWhiteSpace(elementId))
+			{
+				userNameValidate = true;
+			} else {
+				userNameValidate = false;
+			}
+		} else {
+			userNameValidate = false;
+		}
+		
+		if (userNameValidate)
+		{
+			displayPass(elementId);
+		} else {
+			displayFail(elementId);
+		}
+		
+		// Call form validation for update
+		validateForm();
+	}
+	
+	// Validate Email logic / processes
+	function validateEmail(elementId)
+	{
+		// Processes for validation
+		document.getElementById("emailValidation").width = "16";
+		document.getElementById("emailValidation").height = "16";
+		
+		element = document.getElementById(elementId);
+		
+		// Email validation RegEx test
+		// must contain an @ sign and at least one .
+		// @ must not be the first character
+		// last dot must be present after the @ sign, and a minimum of 2 characters before the end
+		if (/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/.test(element.value))
+		{
+			emailValidate = true;
+		} else {
+			emailValidate = false;
+		}
+		
+		if (emailValidate)
+		{
+			displayPass(elementId);
+		} else {
+			displayFail(elementId);
+		}
+		
+		// Call form validation for update
+		validateForm();
+	}
+	
+	// Validate Password logic / processes
+	function validatePassword(elementId)
+	{
+		// Processes for validation
+		document.getElementById("passStr").style.display = "none";
+		
+		document.getElementById("passwordValidation").width = "16";
+		document.getElementById("passwordValidation").height = "16";
+		
+		element = document.getElementById(elementId);
+		
+		if (checkLength(elementId, passLength))
+		{
+			passwordValidate = true;
+			setStrength(getStrength(elementId));
+		} else {
+			passwordValidate = false;
+		}
+		
+		//Notify Confirm Password validation of a password change
+		validateConfirmPass("confirmPassword");
+		
+		if (passwordValidate)
+		{
+			displayPass(elementId);
+		} else {
+			displayFail(elementId);
+		}
+		
+		// Call form validation for update
+		validateForm();
+	}
+	
+	// Validate UserName logic / processes
+	function validateConfirmPass(elementId)
+	{
+		// Processes for validation
+		document.getElementById("confirmPassValidation").width = "16";
+		document.getElementById("confirmPassValidation").height = "16";
+		
+		pswrd = document.getElementById("password");
+		
+		if (checkLength(pswrd.id, passLength))
+		{
+			confPswrd = document.getElementById("confirmPassword");
+			
+			if (confPswrd.value == pswrd.value)
+			{
+				passConfirmValidate = true;
+			}else{
+				passConfirmValidate = false;
+			}
+		}else{
+			passConfirmValidate = false;
+		}
+		
+		if (passConfirmValidate)
+		{
+			displayPass(elementId);
+		}else{
+			displayFail(elementId);
+		}
+
+		// Call form validation for update
+		validateForm();
+	}
+	
+	// Activates / Deactivates submit button
+	// Based on form Validation
+	// Called after any change to avoid erroneous submission 
+	function validateForm()
+	{
+		if (userNameValidate && emailValidate && passwordValidate && passConfirmValidate)
+		{
+			document.getElementById("formSubmit").disabled = false;
+		} else {
+			document.getElementById("formSubmit").disabled = true;
+		}
+	}
+	
+	//Call server / userName database, check user name does not already exist	
+	function checkUnique()
+	{
+		var data = $("#userDetails");
+		
+		return $.ajax
+		({
+			url: "http://localhost/validateUserName.php",
+			type: "POST",
+			crossDomain: true,
+			data: data.serialize(),
+			dataType: "text",
+		});
+	}
+	
+	// 'Callback' function called directly after successful server communication
+	// 'Fixes' return from server and sets a control boolean accordingly
+	function handleResponse(data)
+	{
+		elementId = document.getElementById("userName").id;
+		getData = data.toString();
+		n = getData.length;
+		getResult = getData.charAt(n-1);
+		
+		if (getResult == "1")
+		{
+			isUnique = true;
+		} else {	
+			isUnique = false;
+		}
+		
+		validateUserName(elementId);
+	}
+	
+	// Checks a given String for an instance of whiteSpace
+	// Returns true or false
+	function hasWhiteSpace(elementId)
+	{
+		element = document.getElementById(elementId);
+		return /\s/.test(element.value);
+	}
+	
+	// Checks a given String against a given int
+	// if length of string is greater or equal to the int
+	// return true, else false
+	function checkLength(elementId, aLength)
+	{
+		element = document.getElementById(elementId);
+		if(element.value.length >= aLength)
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// Checks a given String for an instance of a given Character
+	function matchCharacter(elementId, character)
+	{
+		element = document.getElementById(elementId);
+		
+		if (character == "specialZ")
+		{
+			return(/\W/.test(element.value));
+		} else {
+			exp = new RegExp(character);
+			return exp.test(element.value);
+		}
+	}
+	
+	// Receives an element id and changes image to 'pass.png'
+	function displayPass(elementId)
+	{
+		element = document.getElementById(elementId);
+		if (element.id == "userName") { document.getElementById("userNameValidation").src = "images/pass.png"; }
+		if (element.id == "emailAddress") { document.getElementById("emailValidation").src = "images/pass.png"; }
+		if (element.id == "password") { document.getElementById("passwordValidation").src = "images/pass.png"; }		
+		if (element.id == "confirmPassword") { document.getElementById("confirmPassValidation").src = "images/pass.png"; }
+	}
+	
+	// Receives an element id and changes image to 'fail.png'
+	function displayFail(elementId)
+	{
+		element = document.getElementById(elementId);
+		if(element.id == "userName") { document.getElementById("userNameValidation").src = "images/fail.png"; }
+		if (element.id == "emailAddress") { document.getElementById("emailValidation").src = "images/fail.png"; }
+		if (element.id == "password") { document.getElementById("passwordValidation").src = "images/fail.png"; }
+		if (element.id == "confirmPassword") { document.getElementById("confirmPassValidation").src = "images/fail.png"; }
+	}
+	
+	// Calculates a strength value based on the result of 3 method calls
+	// matchCharcter is called 3 times to check for Capital letters, numbers
+	// and special characters. Returns the Strength value
+	function getStrength(elementId)
+	{
+		capitalLetter = "[A-Z]";
+		aNumber = "[0-9]";
+		specialCharacter = "specialZ";
+		
+		aCap = matchCharacter(elementId, capitalLetter);
+		aNum = matchCharacter(elementId, aNumber);
+		aSpec = matchCharacter(elementId, specialCharacter);
+		
+		if (!aCap || !aNum || !aSpec) { str = "Weak"; }
+		if (aCap || aSpec) { str = "Medium"; }
+		if (aCap && aNum) { str = "Medium"; }
+		if (aCap && aSpec) { str = "Strong"; }
+		if (aSpec && aNum) { str = "Strong"; }
+		if (aCap && aNum && aSpec) { str = "Very Strong"; }
+		
+		return str;	
+	}
+	
+	// Sets a visual strength indicator based on
+	// the return of getStrength
+	function setStrength(aStrength)
+	{
+		document.getElementById("passStr").style.display = "block";
+		
+		if (aStrength == "Weak") { document.getElementById("passStr").innerHTML = "Weak"; document.getElementById("passStr").style.color = "red"; }
+		
+		if (aStrength == "Medium")
+		{
+			document.getElementById("passStr").innerHTML = "Medium"; 
+			document.getElementById("passStr").style.color = "orange";
+		}
+		
+		if (aStrength == "Strong")
+		{
+			document.getElementById("passStr").innerHTML = "Strong"; 
+			document.getElementById("passStr").style.color = "green";
+		}
+		
+		if (aStrength == "Very Strong")
+		{
+			document.getElementById("passStr").innerHTML = "Very Strong"; 
+			document.getElementById("passStr").style.color = "green";
+		}
+	}
+	
+	// Confirm form has passed validation checks
+	function submitChecks()
+	{
+		if (userNameValidate && emailValidate && passwordValidate && passConfirmValidate)
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// Open/Close form field requirements info
+	function toggleReq(id)
+	{	
+		if(id == 1){ 
+			$(document).ready(function(){
+				$("#userNameReq").slideToggle("slow");
+			});
+		}
+		
+		if(id == 2){ 
+			$(document).ready(function(){
+				$("#emailReq").slideToggle("slow");
+			});
+		}
+		
+		if(id == 3){ 
+			$(document).ready(function(){
+				$("#passwordReq").slideToggle("slow");
+			});
+		}
+		
+		if(id == 4){ 
+			$(document).ready(function(){
+				$("#confPassReq").slideToggle("slow");
+			});
+		}
+	}
+	
+</script>
+
+</head>
+
+<body>
+<div id="page">
+	<div id="pageTitle">
+		<h1>Create A New Account</h1>
+	</div>
+	
+	<div id ="tableBox1">
+		<form id="userDetails" name="submitNewAccount"
+			onsubmit="return submitChecks();" method="post"
+				action= "http://localhost/testFile.php" />
+		
+		<table class="inputFields" >
+		<tr><td class="column1">User Name:</td>
+		<td>
+		<input type="text" name="UserName" size="14" maxlength="24" id="userName" 
+				onblur="checkUnique().done(handleResponse); toggleReq(1)" onfocus="toggleReq(1)"/>
+		
+		<img id="userNameValidation" src="images/fail.png" width="0px" height="0px"
+				alt="Result of Validation - a Tick or Cross"/>
+		</td><td class="column3">
+		</td></tr>
+		</table>
+		
+		<div id="userNameReq"></div>
+		
+		<table class="inputFields" >
+		<tr><td class="column1">Email Address:</td>
+		<td>
+		<input type="text" name="EmailAddress" size="14" maxlength="24" id="emailAddress" 
+				onblur="validateEmail(this.id); toggleReq(2)" onfocus="toggleReq(2)"/>
+		
+		<img id="emailValidation" src="images/fail.png" width="0px" height="0px"
+				alt="Result of Validation - a Tick or Cross"/>
+		</td><td class="column3">
+		</td></tr>
+		</table>
+		
+		<div id="emailReq"></div>
+		
+		<table class="inputFields" >
+		<tr><td class="column1">Password:</td>
+		<td>
+		<input type="password" name="Password" size="14" maxlength="24" id="password" 
+				onblur="validatePassword(this.id); toggleReq(3)" onfocus="toggleReq(3)"/>
+				
+		<img id="passwordValidation" src="images/fail.png" width="0px" height="0px"
+				alt="Result of Validation - a Tick or Cross"/>
+		</td><td class="column3">
+		<strong id="passStr"></strong>
+		</td></tr>
+		</table>
+		
+		<div id="passwordReq"></div>
+		
+		<table class="inputFields" >
+		<tr><td class="column1">Confirm Password:</td>
+		<td>
+		<input type="password" name="ConfirmPassword" size="14" maxlength="24" id="confirmPassword" 
+				onblur="validateConfirmPass(this.id); toggleReq(4)" onfocus="toggleReq(4)"/>
+	
+		<img id="confirmPassValidation" src="images/fail.png" width="0px" height="0px"
+				alt="Result of Validation - a Tick or Cross"/>
+		</td><td class="column3">
+		</td></tr>
+		</table>
+		
+		<div id="confPassReq"></div>
+		
+		<input type="submit" id="formSubmit" name="SubmitButton" value="Submit" onclick="" disabled />
+		
+	</div>
+</div>
+</body>
+</html>
+

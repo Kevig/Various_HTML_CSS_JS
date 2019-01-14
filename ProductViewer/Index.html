@@ -1,0 +1,989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"lang="en" xml:lang="en">
+<head>
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+	<link type="text/css" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+
+	<link type="text/css" rel="stylesheet" href="./ItemDisplayStyles.css"/>
+	
+	<title><!--Insert Title--></title>
+	
+	<style>
+		
+	</style>
+	
+</head>
+	<body>
+		<div id="itemDisplayContainer" >
+			
+			<div id="searchFunction" style="height: 30px; width: 700px; margin: 0 auto; border-right: 2px solid white;">
+				<span class="glyphicon glyphicon-search" id="itemSearchBtn" style="float: right; padding-top: 1px; margin-left: 5px; margin-right: 5px; width: 26px; height: 26px; font-size: 18pt;" onclick="itemSearch()"></span>
+				<input style="float: right; border: 2px solid grey; border-radius: 5px;" type="text" name="searchText" id="searchInput" onchange="itemSearch()"/>
+			</div>
+
+			<!-- Menu PlaceHolder -->
+			<div id="itemDisplayMenuContainer">
+				
+			</div>
+
+			<div style="position: relative; width: 700px; margin: 0 auto; padding-top: 3px; padding-left: 10px; font-size: 10pt; color: grey; font-weight: 600;">
+					<span>Sort By:</span>
+					
+					<span class="sortOption"><a href="#" onclick="iSortByName()">Name</a></span>
+					<span> | </span>
+					<span class="sortOption"><a href="#" onclick="iSortById()">Id</a></span>
+					<span> | </span>
+					<span class="sortOption"><a href="#">Price</a></span>
+					<span> | </span>
+					<span class="sortOption"><a href="#">Stock</a></span>
+					
+					<span class="sortOption" style="float: right; margin-left: 5px; padding-right: 10px;" onclick="iSortOrder(0)"><a href="#">Descending</a></span>
+					<span class="sortOption" style="float: right; margin-left: 5px;"> | </span>
+					<span class="sortOption" style="float: right; margin-left: 5px;" onclick="iSortOrder(1)"><a href="#">Ascending</a></span>
+					<span style="float: right;">Order:</span>
+			</div>
+
+			<div id="itemDisplayContent">
+				
+			</div>
+			
+			<!-- Menu -->
+			<div id="itemMenu">
+				<ul class="menuRoot"></ul>
+			</div>
+			
+			<div id="itemDisplayPageControl" style="width: 700px; height: 32px; margin: 0 auto; border-right: 2px solid white; border-top: 1px solid grey;">
+				<div style="position: relative; width: 184px; height: 32px; margin: 0 auto;">
+					<span class="glyphicon glyphicon-triangle-left" onclick="pagerPrevious()" style="float: left; font-size: 22pt;" id="pagerPreviousBtn"></span>
+					<span style="float: left; margin-top: 5px;">Page: <input type="text" style="width: 30px; text-align: center; border: none;" id="pagerCurrent" onchange="pagerInputChange(this.value)"/></span>
+					<span style="float: left; width: 20px; height: 26px; text-align: center; margin-top: 5px; padding-top: 1px;">of</span>
+					<span id="pagerMax" style="float: left; width: 30px; height: 26px; text-align: center; margin-top: 5px; padding-top: 1px;"></span>
+					<span class="glyphicon glyphicon-triangle-right" onclick="pagerNext()" id="pagerNextBtn" style="float: left; font-size: 22pt;"></span>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script>
+		
+		<!-- Test categories pre-database implementation -->
+		var categories = ["Test Category", "Category 1", "Category 2", "Category 3", "Another", "And Another"];
+		
+		<!-- Test subCategories pre-database implementation -->
+		var subCategories = [ ["Test Sub-Cat", "Sub Category 1", "Sub Category 2", "Sub Category 3"], 
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"],
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"],
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"],
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"],
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"],
+							  ["Sub Category 0", "Sub Category 1", "Sub Category 2", "Sub Category 3"]];
+		
+		<!-- Test items pre-database implementation -->
+		var items = [ 	
+						{ 	category: 0, subCategory: 0, itemId:"I001", name:"STRIX-GTX1080-O8G-GAMING", price:659.99, stock:5,
+							image:["gCard03.png","gCard01.png","gCard02.png"], 
+							spec:["GPU: GeForce® GTX 1080", "CUDA cores: 2560", "Video Memory: 8GB GDDR5X", "Stream Processors: 2560","SLI Ready","VR Ready","PhysX/CUDA Enabled","3 Years Warranty.",""], 
+							fullText:["Product information: GEFORCE GTX 1080 DIRECTCU III STRIX GAMING AURA RGB 8192MB GDDR5X PCI-EXPRESS GRAPHICS CARD",
+									  "ASUS Strix GTX 1080 is an all-new gaming graphics card packed with exclusive ASUS technologies, including DirectCU III with Triple Patented Wing-Blade 0dB Fan Design delivers max air flow with 30% cooler and 3X quieter performance.",
+									  "ASUS STRIX-GTX1080-O8G-GAMING with factory-overclocked 1898 MHz GPU boost clock. And also, 1936 MHz GPU boost clock in OC mode provides better gaming experience. The cards with exclusive 8+2 phase AUTO-EXTREME Technology with Super Alloy Power II which is an industry-only, 100% automated production process that incorporates Super Alloy Power II components for premium quality and best reliability.",
+									  "ASUS STRIX-GTX1080-O8G-GAMING armored with Aura RGB Lighting, it displays millions of color and six lighting effects while Modular Shroud can be affixed with swappable, 3D printable parts to express your own unique style. VR-FRIENDLY HDMI PORTS can connect a VR device and display at the same time and enjoy immersive virtual reality experiences without having to swap cables. ASUS FANCONNECT featuring two 4-pin GPU-controlled headers that can be connected to system fans for targeted supplemental cooling and optimal thermal performance.",
+									  "ASUS graphics cards bundled with GPU Tweak II with Xsplit Gamecaster provides intuitive performance tweaking and lets you stream your gameplay instantly. What's more, streaming or recording your gameplay with Free 1-year premium XSplit Gamecaster (USD 99.95 /yr) lets users share gameplay live."]
+						},
+						{	category: 0, subCategory: 0, itemId:"I002", name:"Some Name", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 0, subCategory: 1, itemId:"I003", name:"Product Name", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},						
+						{	category: 0, subCategory: 2, itemId:"I004", name:"Product Name", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},						
+						{	category: 0, subCategory: 2, itemId:"I005", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},					
+						{	category: 0, subCategory: 3, itemId:"I006", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 0, subCategory: 3, itemId:"I007", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 0, subCategory: 3, itemId:"I008", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 1, subCategory: 0, itemId:"I009", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						}, 
+						{	category: 1, subCategory: 2, itemId:"I010", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 1, subCategory: 3, itemId:"I011", name:"Product Name",  price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 2, subCategory: 0, itemId:"I012", name:"Product Name", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I013", name:"Name", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I014", name:"Name Of Product", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I015", name:"Name?", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I016", name:"Name 01", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I017", name:"N1", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						}, 
+						{	category: 3, subCategory: 1, itemId:"I018", name:"ABCDE", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I019", name:"Blip", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I020", name:"Zip", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I021", name:"ZAM", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I022", name:"BAM", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I023", name:"WHAM", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						},
+						{	category: 3, subCategory: 1, itemId:"I024", name:"NaMe", price:0, stock:0,
+							image:[""],
+							spec:[""],
+							fullText:[""]
+						}];
+		
+		
+		
+		// Menu Variables
+		var insertString = "";		
+		var openMenuId = "";
+		
+		$(document).ready( function() {
+			populateMenu(categories, subCategories);
+			setPagerValues(0,0);
+		});
+		
+		$(window).resize( function() {
+			updateMenuCSS();
+		});
+		
+		// Actions required to build menu
+		function populateMenu(cat, sub)
+		{			
+			insertString = "";
+			
+			for(var c = 0; c < categories.length; c++)
+			{
+				addCategory(c);
+			}
+						
+			$(".menuRoot").html(insertString);
+			updateMenuCSS();
+			$(".menuLayer1").hide();
+		}
+		
+		// Add Category html to insertString
+		function addCategory(c)
+		{
+			insertString += '<li class="category"><a class="catA" onclick="openCategoryMenu(' + c + ')" id="' + categories[c] + '" href="#">' + categories[c] + '</a><ul class="menuLayer1" id=' + c + '>';
+			for(var s = 0; s < subCategories[c].length; s++)
+			{
+				addSubCategories(c, s);	
+			}
+			insertString += '</ul>';
+		}
+		
+		// Add subCategory html to insertString
+		function addSubCategories(c, s)
+		{
+			insertString += '<li class="subCategory"><a class="subA" onclick="loadItems(' + s + ')" id="' + subCategories[c][s] + '" href="#">' + subCategories[c][s] + '</a></li>';
+		}
+		
+		// Update CSS for created items directly to page
+		function updateMenuCSS()
+		{			
+			$(".menuRoot").css({"list-style-type": "none",
+								"height": "50px",
+								"margin": "0px",
+								"padding-left": "0px" });
+			
+			$(".category").css("float", "left");
+			
+			$(".menuLayer1").css({  "list-style-type": "none",
+									"padding": "0",
+									"position": "absolute"});
+				
+			$("#itemDisplayMenuContainer").css({ "height": ($("#itemMenu").height()+"px")});
+			$("#itemMenu").css({ "margin-left": $("#itemDisplayMenuContainer").css("margin-left"),
+								 "top": "42px" });
+			
+			$(".catA").css({ "text-decoration": "none",
+							 "display": "block",
+							 "width":  (($("#itemMenu").width() / categories.length)),
+							 "border-top": "1px solid white",
+							 "border-bottom": "1px solid grey",
+							 "border-left": "1px solid #f2f2f2",
+							 "border-right": "1px solid white",
+							 "padding-left": "10px",
+							 "padding-top": "15px",
+							 //"background-color": //"white", //"#333A56", //"#6B7A8f", // Category Colour
+							 "background": "rgb(255,255,255)", 
+							 "background": "-moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%)",
+							 "background": "-webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+							 "background": "linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+							 "filter": "progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 )",
+
+							 "color": "black",
+							 "font-weight": "600",
+							 "text-align": "center",
+							 "height": "48px" });
+			
+			$(".subA").css({ "text-decoration": "none",
+							 "display": "block",
+							 "width": (($("#itemMenu").width() / categories.length)-2),
+							 "height": "30px",
+							 "margin-left": "1px",
+							 "padding-top": "5px",
+							 "padding-right": "5px",
+							 "border": "1px solid grey",
+							 "border-left": "1px solid #f2f2f2",
+							 "border-top": "1px solid #f2f2f2",
+							 "border-right": "1px solid white",
+							 //"background-color": "white",//"#52658F", // "#A9B7C0", // Sub Category Colour
+							 "background": "rgb(255,255,255)", 
+							 "background": "-moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%)",
+							 "background": "-webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+							 "background": "linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+							 "filter": "progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 )",
+							 
+							 "color": "black",
+							 "font-size": "9pt",
+							 "font-weight": "500",
+							 "text-align": "right",
+							 "padding-left": "5px" });
+
+			$("#searchFunction").css({ 	"background": "rgb(255,255,255)", 
+										"background": "-moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%)",
+										"background": "-webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+										"background": "linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+										"filter": "progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 )"
+									});
+									
+			$("#itemDisplayPageControl").css({ 	"background": "rgb(255,255,255)", 
+												"background": "-moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%)",
+												"background": "-webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+												"background": "linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+												"filter": "progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 )"
+											});
+
+			$("#itemDisplayContent").css({ 	"border-right": "2px solid white",
+											"background": "rgb(255,255,255)", 
+											"background": "-moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%)",
+											"background": "-webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+											"background": "linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%)",
+											"filter": "progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 )"
+										});
+		}
+		
+		// Item Variables
+		var itemCols = 3;
+		var itemRows = 3;
+		var loadItem;
+		var ib;
+		
+		var pMax = 0;
+		var pCurrent = 0;
+		
+		var openCategory;
+		var openSubCategory;
+		
+		var imgSliderActive;
+		var slideTimer;
+		var indexVal;
+		var imgN;
+		var imgP;
+		
+		var order = 0;
+		
+		// Temp Storage for items to display;
+		var itemBuffer;
+		
+		// Initialise getting, and loading of items to page one.
+		function loadItems(s)
+		{
+			openSubCategory = s;
+			itemBuffer = [];
+			getItems();
+			iSortByName();
+			iSortOrder(1);
+			loadPage(0);
+		}
+		
+		// Load itmes by page number
+		function loadPage(i)
+		{			
+			try // Catch 'expected' input value change prior to itemBuffer init
+			{
+				pMax = Math.ceil(itemBuffer.length / (itemCols * itemRows));
+			}
+			catch(err)
+			{
+				itemSearch();
+				i++;
+			}
+			
+			sliderStop();
+			
+			var p;
+			if(i > 0)
+			{
+				loadItem = ((itemCols * itemRows)*i);
+			} 
+			else
+			{
+				loadItem = 0;
+			}
+			p = loadItem;
+			
+			pCurrent = i + 1;
+			
+			
+			setPagerValues();
+			populateItemDisplay();
+			fadeInItems(p);
+		}
+		
+		function setPagerValues()
+		{
+			$("#pagerCurrent").val(pCurrent);
+			$("#pagerMax").html(pMax);
+		}
+		
+		function pagerNext()
+		{
+			pagerInputChange(pCurrent+1);
+		}
+		
+		function pagerPrevious()
+		{
+			pagerInputChange(pCurrent-1);
+		}
+		
+		function pagerInputChange(n)
+		{
+			pCurrent = parseInt(n);
+
+			if(isNaN(pCurrent))
+			{
+				pCurrent = 1;
+			}
+			
+			if(pCurrent > pMax)
+			{
+				pCurrent = 1;
+			}
+			
+			if(pCurrent == 0)
+			{
+				pCurrent = pMax;
+			}
+						
+			loadPage(pCurrent - 1);
+		}
+		
+		// Build a list of items that have the selected Category and subCategory values
+		function getItems()
+		{
+			var n = items.length;
+			for(var i = 0; i < n; i++)
+			{
+				if(items[i].category == openCategory && items[i].subCategory == openSubCategory)
+				{
+					itemBuffer.push(items[i]);
+				}
+			}
+			iSortByName();
+			iSortOrder(1)
+		}
+		
+		
+		// Item Search Function
+		function itemSearch()
+		{
+			var value = $("#searchInput").val();			
+			itemBuffer = [];
+			// Create Regular expression from value string
+			var testExp = new RegExp(value, 'i');
+			var n = items.length;
+
+			// Itterate each item, concantenate strings as a single testCase string
+			for(var i = 0; i < n; i++)
+			{
+				var testCase = ""; // Initialise storage for local testCase
+				testCase += items[i].category + " " + 
+				items[i].subCategory + " " + 
+				items[i].itemId + " " +
+				items[i].name + " £" +
+				items[i].price + " " +
+				items[i].stock + " ";
+				
+				var p = items[i].spec.length;
+				for (var j = 0; j < p; j++)
+				{
+					testCase += items[i].spec[j] + " ";
+				}
+				testCase += items[i].fullText + " ";
+								
+				// Check testCase for existance of testExp
+				if(testExp.test(testCase))
+				{
+					// Add each indexes item to buffer
+					itemBuffer.push(items[i]);
+				}
+			}
+			iSortByName();
+			iSortOrder(0);
+			loadPage(0);
+		}
+		
+		// Sort by name
+		function iSortByName()
+		{
+			try
+			{
+				itemBuffer.sort(function(a,b) 
+				{
+					if(a.name.toUpperCase() > b.name.toUpperCase())
+					{
+						return 1;
+					}
+					else if(b.name.toUpperCase() > a.name.toUpperCase())
+					{
+						return -1;
+					}
+					else
+					{
+						return 0;
+					}
+				} );
+			}
+			catch(err)
+			{
+				// Buffer not initialised
+				itemSearch();
+				iSortByName();
+			}
+			loadPage(pCurrent-1);
+		}
+		
+		function iSortById()
+		{
+			try
+			{
+				itemBuffer.sort(function(a,b) 
+				{
+					a = parseInt(a.itemId.substring(1));
+					b = parseInt(b.itemId.substring(1));
+					return a-b;
+				} );
+			}
+			catch(err)
+			{
+				// Buffer not initialised
+				itemSearch();
+				iSortById();
+			}
+			loadPage(pCurrent-1);
+		}
+		
+		function iSortOrder(n)
+		{
+			if(order == 1 && n == 0)
+			{
+				try
+				{
+					itemBuffer.reverse();
+					order = 0;
+				}
+				catch(err) {}
+			}
+			
+			if(order == 0 && n == 1)
+			{
+				try
+				{
+					itemBuffer.reverse();
+					order = 1;
+				}
+				catch(err) {}
+			}
+			
+			loadPage(pCurrent-1);
+		}
+				
+		// Initialise insertString to empty itterate adding rows
+		function populateItemDisplay()
+		{
+			ib = 0;
+			openCategoryMenu(-1);
+			insertString = "";
+			for(var r = 0; r < itemRows; r++)
+			{
+				if(loadItem < itemBuffer.length)
+				{
+					addItemRow(r);
+				}
+				else
+				{
+					break;
+				}
+			}
+			insertString += '<div id="itemDetails" style="position: absolute; display: none; background-color: white; width: 2px; height: 2px; top: 349px; left: 349px; -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);"></div>';
+			$("#itemDisplayContent").html(insertString);
+			updateItemDisplayCSS();
+		}
+		
+		// Add html for a row and itterate adding columns
+		function addItemRow(r)
+		{
+			insertString += '<div class="iRow" style="width: 630px; margin: 0 auto; margin-top: 10px; height: 200px; ">';
+			for(var c = 0; c < itemCols; c++)
+			{
+				if(loadItem < itemBuffer.length)
+				{
+					addItemColumn(c);
+				}
+				else
+				{
+					break;
+				}
+			}
+			insertString += '</div>';			
+		}
+		
+		// Add html for a column and add an Item
+		function addItemColumn(c)
+		{
+			insertString += '<div class="iColumn" id="' + "i" + loadItem +  '" style="display: none; opacity: 1; width: 200px; height: 200px; float: left; background-color: #f2f2f2; margin-right: 10px;">';
+			addItem();
+			insertString += '</div>';
+		}
+		
+		// Add html for an Item <a> tag
+		function addItem()
+		{
+			var imgLink;
+			if(itemBuffer[loadItem].image[0] == "")
+			{
+				imgLink = "./NoImage.png";
+			} 
+			else
+			{
+				imgLink = "./" + itemBuffer[loadItem].image[0];
+			}
+				
+			insertString += '<a href="#" class="itemBlock" id="' + "ib" + ib + '" style="display: block; opacity: 1; height: 198px; width: 198px; margin: 1px; background-color: white; text-decoration: none; color: black; -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);">' +
+							'<span style="background-color: white; color: black; display: block; margin-top: 1px; width: 198px; height: 30px; text-align: center; padding-top: 5px; border-bottom: 1px solid #f2f2f2; font-size: 10pt;">'+ itemBuffer[loadItem].name +'</span>' + 
+							'<span style="display: block; margin-left: 2px; margin-top: 2px; width: 194px; height: 132px;"><img style="width: 154px; height: 112px; margin-left: 20px; margin-top: 10px; opacity: 1;" src="' + imgLink + '" alt=""></span>' + 
+							'<div style="display: block; color: black; font-size: 8pt; padding-top: 10px; margin-left: 2px; margin-top: 2px; margin-bottom: 1px; width: 194px; height: 31px; text-align: center; border-top: 1px solid #f2f2f2;"><span style="float: left; margin-left: 5px;"> id: ' + itemBuffer[loadItem].itemId + '</span><span style="float: right; margin-right: 5px;"> Price: &pound' + itemBuffer[loadItem].price + '</span></div>' + 
+							'</a>';
+			loadItem++;
+			ib++;
+		}
+		
+		// Get item Data - NOT IN USE? -> GUESS NOT
+		//function getItemData(id)
+		//{
+		//	var n = items.length;
+		//	for(var i = 0; i < n; i++)
+	//		{
+	//			if(items[i].itemId == id)
+	//			{
+	//				return items[i];
+	//			}
+	//		}
+	//		return -1;
+	//	}
+		
+		// Fade in each item - pass in i and n
+		function fadeInItems(p)
+		{
+			var n = -1;
+			if(itemBuffer.length < (itemCols * itemRows))
+			{
+				n = itemBuffer.length;
+			}
+			else
+			{
+				n = itemCols * itemRows;
+			}
+			
+			//animateFadeInItems(0, n);
+			
+			// Fade in delay incrementing
+			var s = 300;
+			for(var i = 0 + p; i < n + p; i++)
+			{
+				$("#i"+i).fadeIn(s);
+				s += 300;
+			}
+		}
+		
+		// Detailed Item display
+		function loadItemDetails(i)
+		{
+			insertString = "";
+			insertString += // Container
+							'<div id="itemDetailsDisplay" style="width: 100%; height: 100%;">' +
+							'<div style="padding-top: 5px; padding-right: 10px; height: 30px; width: 100%; border-bottom: 1px solid #f2f2f2;"><span style="float: right;">' +
+							// Close Window Bar
+							'<a href="#" onclick="closeItemDetails()" style="text-decoration: none; color: black;">Close Window</a></span></div>' +
+							// Item Nsme Bar
+							'<div style="background-color: #f2f2f2; width: 100%; height: 80px; padding-left: 20px; margin: 0px; padding-top: 30px; margin-bottom: 10px; border-bottom: 1px solid #f2f2f2;"><span style="float: left;"><h2 style=" margin: 0; color: black;">' + itemBuffer[i].name + '</h2></span></div>' +
+							//#CCCBC6 Bague
+							'<div style="height:250px; ">' +
+							
+							// Item details -> Id, Contents, Size etc
+							'<div id="detailsLeftColumn" style="position: absolute; left: 7px; width: 180px; height: 240px; overflow-y: auto;">'+
+							
+							'<ul style="list-style-type: none; padding: 5px; padding-top: 0px; font-size: 8pt;">'+
+							'<li style="margin-bottom: 2px; border-bottom: 1px solid #f2f2f2; text-align: center; padding-bottom: 5px;">Item Specification</li>';
+							//'<li style="margin-bottom: 2px; border-bottom: 1px solid #f2f2f2;">Item ID: '+ itemBuffer[i].itemId +'</li>';
+							
+							// List Item repeater
+							var p = itemBuffer[i].spec.length;
+							for(var n = 0; n < p; n++)
+							{
+								if(itemBuffer[i].spec[n] != "")
+								{
+									insertString += '<li style="margin-bottom: 2px; border-bottom: 1px solid #f2f2f2;">'+ itemBuffer[i].spec[n] +'</li>';
+								}
+							}
+							
+							insertString += '</ul>'+
+							'</div>' +
+							
+							// Image scroller - single or multiple product images
+							'<div id="detailsCenterColumn" style="position: absolute; padding: 5px; padding-top: 0px; left: 192px; width: 295px; height: 240px;">';
+							
+							// Image Slider Repeater
+							p = itemBuffer[i].image.length;
+							for(var n = 0; n < p; n++)
+							{
+								if(n == 0 && itemBuffer[i].image[n] == "")
+								{
+									insertString += '<div style="display: none; position: absolute;" id="imgSlider'+ n +'"><img src="./NoImage.png" style="width: 281px; height: 200px;" ></div>';
+								}
+								
+								if (itemBuffer[i].image[n] != "")
+								{
+									insertString += '<div style="display: none; width: 283px; height:200px; position: absolute;" id="imgSlider'+ n +'"><img src="'+ itemBuffer[i].image[n] +'" style="width: 100%; height: 100%;" ></div>';
+								}
+							}
+							
+							insertString += '<div style="position: absolute; width: 284px; height: 200px; border: 1px solid #f2f2f2;"></div>'+
+							// Slider Control Panel
+							'<div id="sliderControlPanel" style="position: absolute; top: 210px; padding-left: 80px; padding-top: 1px; width: 284px; height: 30px; background-color: #f2f2f2;">'+
+							'<a href="#" onclick="sliderPrevious()" id="previousBtn" style="float: left; border: 2px solid grey; border-radius: 50%; width: 28px; height: 28px; padding-left: 5px; padding-top: 4px; margin-right: 4px; background-color: white; color: black;"><span class="glyphicon glyphicon-step-backward" style="text-decoration: none;"></span></a>'+
+							'<a href="#" onclick="sliderStop()" id="stopBtn" style="float: left; border: 2px solid grey; border-radius: 50%; width: 28px; height: 28px; padding-left: 4px; padding-top: 4px; margin-right: 4px; background-color: white; color: black;"><span class="glyphicon glyphicon-stop" style="text-decoration: none;"></span></a>'+
+							'<a href="#" onclick="sliderPlay()" id="playBtn" style="float: left; border: 2px solid grey; border-radius: 50%; width: 28px; height: 28px; padding-left: 6px; padding-top: 4px; margin-right: 4px; background-color: white; color: black;"><span class="glyphicon glyphicon-play" style="text-decoration: none;"></span></a>'+
+							'<a href="#" onclick="sliderNext()" id="nextBtn" style="float: left; border: 2px solid grey; border-radius: 50%; width: 28px; height: 28px; padding-left: 5px; padding-top: 4px; margin-right: 4px; background-color: white; color: black;"><span class="glyphicon glyphicon-step-forward" style="text-decoration: none;"></span></a>'+
+							'</div>'+
+							'</div>' +
+							
+							// Pricing / Stock information
+							'<div id="detailsRightColumn" style="position: absolute; left: 492px; width: 180px; height: 240px;">' +
+							'<ul style="list-style-type: none; padding: 5px; padding-top: 0px; font-size: 10pt; text-align: center;">';
+							//'<li style="margin-bottom: 2px; border-bottom: 1px solid #f2f2f2; padding-bottom: 5px;">Item Details</li>'+
+							
+							
+							if(itemBuffer[i].stock <= 0)
+							{
+								insertString += '<li style="margin-bottom: 2px; border: 1px solid #f2f2f2; border-top: none; text-align: center;">Out of Stock</li>';
+							}
+							else
+							{
+								insertString += '<li style="margin-bottom: 2px; ">Price</li>'+
+												'<li style="margin-bottom: 5px; border: 1px solid #f2f2f2; border-top: none; text-align: center;">&pound'+ itemBuffer[i].price +'</li>'+
+												'<li style="margin-bottom: 2px; ">Stock</li>'+
+												'<li style="margin-bottom: 2px; border: 1px solid #f2f2f2; border-top: none; text-align: center;">'+ itemBuffer[i].stock +'</li>';
+							}
+							
+							insertString += '</ul></div></div>' +
+							
+							// Detailed product text / description
+							'<div id="detailsDescription" style="margin-left: 7px; margin-top: 5px; padding-top: 10px; padding-left: 5px; padding-right: 10px; width: 665px; height: 185px;  font-size: 8pt; overflow-y: auto;">';
+							p = itemBuffer[i].fullText.length;
+							for(var n = 0; n < p; n++)
+							{
+								insertString += '<p>' + itemBuffer[i].fullText[n] + '</p>';
+							}
+							
+							insertString += '</div>'+
+							
+							// Colour Bar identical to product name bar
+							'<div style="background-color: #f2f2f2; width: 100%; height: 80px; margin-top: 10px; margin-bottom: 5px;  border: none; "><span style="float: left;"></div>'+
+							'</div>';
+			
+			$("#itemDetails").html(insertString);
+			$("#imgSlider0").show();
+			indexVal = i;
+			imgN = 0;
+			imgP = 1;
+			
+			if(itemBuffer[i].image[0] != "")
+			{
+				sliderPlay();
+			}
+		}
+		
+		// Recursive fade in for fading 1 object at a time
+		function animateFadeInItems(i, n)
+		{
+			$("#i"+i).fadeIn(300, function()
+			{
+				if(i < n)
+				{
+					i++;
+					animateFadeInItems(i, n);
+				}
+			});
+		}
+		
+		// Update CSS for items display
+		function updateItemDisplayCSS()
+		{
+			$('.itemBlock').css({ "opacity" : "1" });
+		}
+		
+		// add animation lockout
+		function openCategoryMenu(e)
+		{
+			$(openMenuId).slideUp();
+			if(openMenuId != "#"+e)
+			{
+				$("#"+e).slideDown();
+				openMenuId = "#"+e;
+				openCategory = e;
+			} 
+			else 
+			{
+				openMenuId = "";
+				openCategory = -1;
+			}
+		}
+		
+		// item display event handlers
+		// lock bool for details display animations
+		var iddLock = false;
+		
+		// Item details display open
+		$(document).on('click', '.itemBlock', function() 
+		{
+			if(!iddLock)
+			{
+				var i = ((itemCols * itemRows) * (pCurrent - 1)) + parseInt(this.id.substring(this.id.indexOf("b")+1));
+				iddLock = true;
+				$("#itemDetails").show();
+				$("#itemDetails").animate(
+				{
+					top: 10,
+					left: 10,
+					width: 680,
+					height: 680,
+				},  1000, function()
+				{
+					iddLock = false;
+					loadItemDetails(i);
+					$("#itemDetailsDisplay").show();
+				});
+			}
+		});
+		
+		// Item details display close
+		function closeItemDetails()
+		{
+			if(!iddLock)
+			{
+				iddLock = true;
+				$("#itemDetailsDisplay").hide();
+				$("#itemDetails").animate(
+				{
+					top: 349,
+					left: 349,
+					width: 2,
+					height: 2,
+				},  1000, function()
+				{
+					$("#itemDetails").hide();
+					iddLock = false;
+					sliderStop();
+				});
+			}
+		}
+		
+		//$(document).on('mouseenter', '.itemBlock', function() { $(this).parent('.iColumn').fadeTo(200, 1)});
+		//$(document).on('mouseleave', '.itemBlock', function() { $(this).parent('.iColumn').fadeTo(200, 0.6)});
+		
+		function checkSlideValues(value)
+		{
+			if(value > itemBuffer[indexVal].image.length -1)
+			{
+				value = 0;
+			}
+
+			if(value < 0)
+			{
+				value = itemBuffer[indexVal].image.length -1;
+			}
+			return value;
+		}
+			
+		function disposeCurrentSlide()
+		{
+			$("#imgSlider" + imgN).fadeOut(1500);
+		}
+		
+		function showNextSlide()
+		{
+			$("#imgSlider" + imgP).show( "slide", {
+				direction: "right",
+				duration: 1500,
+				complete: function() {
+					slideControl();
+				},
+			});
+		}
+		
+		function slideControl()
+		{
+			if(imgSliderActive)
+			{
+				setHighlight("#playBtn");
+				removeHighlight("#stopBtn");
+				slideTimer = setTimeout(sliderNext, 2000); // Add delay
+			} 
+			else
+			{
+				setHighlight("#stopBtn");
+				removeHighlight("#playBtn");
+			}
+		}
+		
+		function sliderStop()
+		{
+			clearTimeout(slideTimer);
+			imgSliderActive = false;
+			slideControl();
+		}
+		
+		function sliderPlay()
+		{
+			imgSliderActive = true;
+			slideControl();
+		}
+		
+		function sliderNext()
+		{
+			clearTimeout(slideTimer);
+			imgN = checkSlideValues(imgN);
+			imgP = checkSlideValues(imgN + 1);
+			disposeCurrentSlide();
+			showNextSlide();
+			imgN++;
+		}
+		
+		function sliderPrevious()
+		{
+			clearTimeout(slideTimer);
+			imgN = checkSlideValues(imgN);
+			imgP = checkSlideValues(imgN - 1);
+			disposeCurrentSlide();
+			showNextSlide();
+			imgN--;
+		}
+			
+		function setHighlight(e)
+		{
+			$(e).css({ 	"border":"2px solid #80dfff",
+						"color":"#80dfff" });
+			//$(e > 'span').css({"color": "#80dfff" });
+		}
+		
+		function removeHighlight(e)
+		{
+			$(e).css({  "border":"2px solid grey",
+						"color":"black" });
+			//$(e > 'span').css({"color": "black" });
+		}
+		
+		// Hover hightlights for slider controls
+		$(document).on('mouseenter', '#previousBtn', function() { setHighlight(this); });
+		$(document).on('mouseleave', '#previousBtn', function() { removeHighlight(this); });
+		
+		$(document).on('mouseenter', '#nextBtn', function() { setHighlight(this); });
+		$(document).on('mouseleave', '#nextBtn', function() { removeHighlight(this); });
+		
+	</script>
+		
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Create A New Account</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<style type="text/css">
+
+.container { 
+	position: relative; 
+	padding: 10px; 
+	width: 480px; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+#titleContainer {
+	width: 450px;
+	margin-top: 10px;
+	margin-bottom: 66px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a {
+	color: grey;
+	text-decoration: none;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+
+h1 { 
+	position: relative; 
+	margin: 0 auto; 
+	text-align: center;
+	color: white; 
+	text-shadow: #428AFF  0 0 20px;
+	font-size: 34pt;
+}
+
+#navBarContainer {
+	position: absolute;
+	top: 0px;
+	left: 50px;
+	width: 430px;
+	height: 46px;
+	z-index: 5;
+}
+
+.alignNavBar {
+	position: relative;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.menuButton{
+	position: absolute;
+	border-bottom: 1px solid silver;
+	border-right: 1px solid silver;
+	text-align: center;
+	box-shadow: 0px 0px 10px #B5D5FF;
+	transition-duration: 0.80s;
+	cursor: pointer;
+}
+
+.menuButton:hover, .menuButton:focus {
+	top: 5px;
+	width: 130px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	font-size: 16pt;
+}
+
+#menuButton01:hover, #menuButton01:focus{ left: -25px; }
+#menuButton02:hover, #menuButton02:focus{ left: 55px; }
+#menuButton03:hover, #menuButton03:focus{ left: 135px; }
+#menuButton04:hover, #menuButton04:focus{ left: 215px; }
+#menuButton05:hover, #menuButton05:focus{ left: 295px; }
+
+.infoBar {  
+	font-size: 10pt;
+}
+
+#infoBar1 {
+	width: 200px;
+	margin-left: 250px;
+	text-align: right;
+}
+
+#infoBar2 {
+	width: 450px;
+	text-align: left;
+}
+
+#ib1Option1 {
+	
+}
+
+#splitterBar {
+	position: relative;  
+	width: 450px;
+	height: 2px;
+	margin-left: auto; 
+	margin-right: auto;
+	margin-bottom: -1px;
+	box-shadow: 0px 0px 10px #B5D5FF;
+}
+
+#infoBar2 {
+	text-align: left;
+}
+
+#contentWindow {
+	border: none;
+	width: 480px;
+	height: 500px;
+	box-shadow: 0px 0px 10px #B5D5FF;
+	border-bottom: 1px solid silver;
+	border-right: 1px solid silver;
+}
+
+#appEndText {
+	border: none;
+	width: 480px;
+	box-shadow: 0px 0px 10px #B5D5FF;
+	border-bottom: 1px solid silver;
+	border-right: 1px solid silver;
+	font-size: 10pt;
+	text-align: right;
+	color: grey;
+}
+
+</style>
+</head>
+
+<body>
+<div id="testBox">
+
+</div>
+<div id="navBarContainer">
+		<ul class="alignNavBar">
+			<li>
+				<a 	class="menuButton" id="menuButton01" 
+					tabindex="1" href="#">Home</a>	
+			</li>
+				
+			<li>
+				<a 	class="menuButton" id="menuButton02" 
+					tabindex="2" href="#">Sign In</a>
+			</li>
+			
+			<li>
+				<a	class="menuButton" id="menuButton03" 
+					tabindex="3" href="#">option3</a>
+			</li>
+				
+			<li>
+				<a	class="menuButton" id="menuButton04" 
+					tabindex="4" href="#">option4</a>
+			</li>
+				
+			<li>
+				<a	class="menuButton" id="menuButton05"
+					tabindex="5" href="#">About</a>
+			</li>
+		</ul>
+</div>
+<div class="container">
+	<div id="titleContainer">
+		<h1 tabindex="-1">TEST SITE</h1>
+	</div>
+	<div class="alignNavBar">
+		<div class="infoBar" id="infoBar1">
+			<ul>
+				<li>
+					<a	id="ib1Option1" 
+						href="#">Create A New Account</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div id="splitterBar"></div>
+			
+			<div class="infoBar" id="infoBar2">
+				<table>
+					<tr>
+						<td			id="ib2Op1Link"
+									onblur="removeElementHighlight('ib2Option1')"
+									onfocus="addElementHighlight('ib2Option1')"
+									onclick="navigateContent('ib2Option1')">
+							&nbsp;
+							<span 	id="ib2Option1">Account</span>
+							&nbsp;
+						</td>
+				
+						<td 		id="ib2Op2Link"
+									onblur="removeElementHighlight('ib2Option2')"
+									onfocus="addElementHighlight('ib2Option2')"
+									onclick="navigateContent('ib2Option2')">
+							&nbsp;
+							<span 	id="ib2Option2">option 2</span>
+							&nbsp;
+						</td>
+				
+						<td 		id="ib2Op3Link"
+									onblur="removeElementHighlight('ib2Option3')"
+									onfocus="addElementHighlight('ib2Option3')"
+									onclick="navigateContent('ib2Option3')">
+							&nbsp;
+							<span 	id="ib2Option3">option 3</span>
+							&nbsp;
+						</td>
+				
+						<td 		id="ib2Op4Link"
+									onblur="removeElementHighlight('ib2Option4')"
+									onfocus="addElementHighlight('ib2Option4')"
+									onclick="navigateContent('ib2Option4')">
+							&nbsp;
+							<span 	id="ib2Option4">option 4</span>
+							&nbsp;
+						</td>
+					</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<iframe id="contentWindow" src="" scrolling="no">
+	</iframe>
+</div>
+
+<div class="container">
+	<div id="appEndText">&copy; 2015 Kevin Groundwater&nbsp;&nbsp;</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+	
+	var firstLoad = true;
+	var menuLayoutStyle = 1;
+	
+	var barStyle = [];
+	var buttonStyle = [];
+	
+	//	Anchor (anchor x, anchor y, menu width, menu height, number of buttons)
+	var navMenuSettings = [75,90,400,30,5]
+	
+	// Called on page load, calls relevant methods
+	// required for page load
+	function innitialisation()
+	{
+		buildMenu();
+	}
+	
+	// Required method call order to construct Menu
+	function buildMenu()
+	{
+		buildStyleArray();
+		buildMenuContainer();
+		writeButtonCSS();
+	}
+	
+	// Set NavBar container CSS
+	function buildMenuContainer()
+	{
+		var values = getBarValues();
+		var element = document.getElementById('navBarContainer');
+		
+		element.style.left = values[0];
+		element.style.top =  values[1];
+		element.style.width =  values[2];
+		element.style.height =  values[3];
+	}
+	
+	// Set button elements CSS
+	function writeButtonCSS()
+	{
+		var values = getButtonValues();
+		var aLength = document.getElementsByClassName('menuButton').length;
+		var element = document.getElementsByClassName('menuButton');
+		
+		for (i = 0; i < aLength; i++)
+		{
+			
+			element[i].style.width = values[0];
+			element[i].style.height = values[1];
+			element[i].style.fontSize = values[4];
+			
+			if (menuLayoutStyle == 1){
+				var left = (buttonStyle.width * i) + "px";
+				element[i].style.left = left;
+				element[i].style.paddingTop = values[2];
+				element[i].style.paddingBottom = values[3];
+				element[i].style.paddingLeft = 0;
+				element[i].style.paddingRight = 0;
+			} else {
+				element[i].style.left = "0px";
+				element[i].style.paddingTop = 0;
+				element[i].style.paddingBottom = 0;
+			}
+			
+			if (menuLayoutStyle == 2){
+				var top = (barStyle.height / barStyle.numOfButtons) * i + "px";
+				element[i].style.top = top;
+				element[i].style.paddingLeft = values[2];
+				element[i].style.paddingRight = values[3];
+				element[i].style.paddingTop = 0;
+				element[i].style.paddingBottom = 0;
+			} else {
+				element[i].style.top = "0px";
+				element[i].style.paddingLeft = 0;
+				element[i].style.paddingRight = 0;
+			}
+		}	
+	}
+	
+	// Returns Navigation Menu style values as an
+	// Array of String values
+	function getBarValues()
+	{
+		return [barStyle.x + "px", barStyle.y + "px", barStyle.width + "px", barStyle.height + "px"];
+	}
+	
+	function getButtonValues()
+	{
+		if (menuLayoutStyle == 1){
+			return [buttonStyle.width + "px", (navMenuSettings[3] / 2) + "px", buttonStyle.topPadding + "px", buttonStyle.bottomPadding + "px", buttonStyle.fontSize + "pt"];
+		} else if (menuLayoutStyle == 2){
+			return [buttonStyle.width + "px", (navMenuSettings[2] / navMenuSettings[4]) + "px", buttonStyle.topPadding + "px", buttonStyle.bottomPadding + "px", buttonStyle.fontSize + "pt"];
+		} else {
+			return false;
+		}
+	}
+	
+	
+	// Calculates button values based on Nav Menu settings / Layout style
+	function buildStyleArray()
+	{
+		if (menuLayoutStyle != null || menuLayoutStyle != "")
+		{
+			if (menuLayoutStyle == 1) 
+			{
+				barStyle = {x:navMenuSettings[0], y:navMenuSettings[1], width:navMenuSettings[2], height:navMenuSettings[3], numOfButtons:navMenuSettings[4]}
+				
+				var btnWidth = barStyle.width / barStyle.numOfButtons;
+				var btnPadTop = (barStyle.height / 2) / 3;
+			}
+			else if (menuLayoutStyle == 2) {
+				barStyle = {x:navMenuSettings[0], y:navMenuSettings[1], width:navMenuSettings[3], height:navMenuSettings[2], numOfButtons:navMenuSettings[4]}
+				
+				var btnWidth = barStyle.width;
+				var btnPadTop = (barStyle.width / 2) / 3;
+				
+			} else {
+				return false;
+			}
+			
+			var fSize = 12; // Work out scaling method for Font Size
+			var btnPadBottom = btnPadTop * 2;
+			if (fSize < 0){fSize = 1;}
+			
+			buttonStyle = {width:btnWidth, topPadding:btnPadTop, bottomPadding:btnPadBottom, fontSize:fSize, scaleFactor:1.625};
+			
+			return true;
+			
+		} else {
+			return false;
+		}
+	}
+	
+	$(document).ready(function()
+	{
+		innitialisation();
+		
+		// Detects <a> element mouseOver events
+		// And
+		// Detects <a> elements mouseOut events
+		$('a').hover(function()
+		{
+			if(document.getElementById(this.id).className != "menuButton")
+			{
+				addElementHighlight( this.id );
+			}
+		}, function() {
+			if(document.getElementById(this.id).className != "menuButton")
+			{
+				removeElementHighlight( this.id );
+			}
+		});
+		
+		// Detects <a> element click events
+		$('a').click(function()
+		{
+			navigateContent( this.id );
+		});
+	});
+
+	// Sets content window display
+	function navigateContent(elementId)
+	{
+		var action = getAction(elementId);
+		document.getElementById("contentWindow").src = action;
+		document.getElementById("contentWindow").focus();
+	}
+	
+	// Receives an element id
+	// Returns a html page address as a String
+	function getAction(elementId)
+	{
+		var elementAction = (document.getElementById(elementId).textContent) + ".html";
+		return elementAction;
+	}
+	
+	// Receives an element id and a String name(action)
+	// Sets the element to the new action
+	function setAction(elementId, newAction)
+	{
+		document.getElementById(elementId).innerHTML = newAction;
+	}
+	
+	
+	
+	// Adds highlighting effect to an element
+	// Effects added - <Strong> text and text shadow
+	function addElementHighlight(elementId, elementClass)
+	{
+		if(elementClass != "menuButton")
+		{
+			var tempSpanText = document.getElementById(elementId).textContent;
+		
+			document.getElementById(elementId).name = tempSpanText;
+			document.getElementById(elementId).innerHTML = "<strong>" + tempSpanText + "</strong>";
+			document.getElementById(elementId).style.textShadow = "#428AFF  0 0 20px";
+		}
+	}
+	
+	// Remove highlighting effects added by addElementHighlight
+	function removeElementHighlight(elementId, elementClass)
+	{
+		if(elementClass != "menuButton")
+		{
+			var tempSpanText01 = document.getElementById(elementId).name;
+		
+			document.getElementById(elementId).innerHTML = tempSpanText01;
+			document.getElementById(elementId).style.textShadow = "";
+			document.getElementById(elementId).name = "";
+		}
+	}
+	
+</script>
+</html>
+

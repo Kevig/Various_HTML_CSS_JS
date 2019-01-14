@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3D Cube Project</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="CubeStyle.css" rel="stylesheet" type="text/css" />
+
+<style></style>
+
+</head>
+<body>
+	<div class="container"> 
+		<div id="dist">
+		<div id ="cube">
+			<!-- a Cube Face -->
+			<div class="aFace" id="block0">0</div>
+				<div class="aFace" id="block1">1</div>
+					<div class="aFace" id="block2">2</div>
+						<div class="aFace" id="block3">3</div>
+							<div class="aFace" id="block4">4</div>
+								<div class="aFace" id="block5">5</div>
+									<div class="aFace" id="block6">6</div>
+										<div class="aFace" id="block7">7</div>
+											<div class="aFace" id="block8">8</div>
+			<!-- a Cube Face -->
+			<div class="aFace" id="block9">9</div>
+				<div class="aFace" id="block10">10</div>
+					<div class="aFace" id="block11">11</div>
+						<div class="aFace" id="block12">12</div>
+							<div class="aFace" id="block13">13</div>
+								<div class="aFace" id="block14">14</div>
+									<div class="aFace" id="block15">15</div>
+										<div class="aFace" id="block16">16</div>
+											<div class="aFace" id="block17">17</div>
+			<!-- Extra Dimension -->
+			<div id="hCube">
+				<!-- a Cube Face -->
+				<div class="aFace" id="block18">18</div>
+					<div class="aFace" id="block19">19</div>
+						<div class="aFace" id="block20">20</div>
+							<div class="aFace" id="block21">21</div>
+								<div class="aFace" id="block22">22</div>
+									<div class="aFace" id="block23">23</div>
+										<div class="aFace" id="block24">24</div>
+											<div class="aFace" id="block25">25</div>
+												<div class="aFace" id="block26">26</div>
+				<!-- a Cube Face -->
+				<div class="aFace" id="block27">27</div>
+					<div class="aFace" id="block28">28</div>
+						<div class="aFace" id="block29">29</div>
+							<div class="aFace" id="block30">30</div>
+								<div class="aFace" id="block31">31</div>
+									<div class="aFace" id="block32">32</div>
+										<div class="aFace" id="block33">33</div>
+											<div class="aFace" id="block34">34</div>
+												<div class="aFace" id="block35">35</div>
+			</div>
+			<!-- Extra Dimension -->
+			<div id="yCube">
+				<!-- a Cube Face -->
+				<div class="aFace" id="block36">36</div>
+					<div class="aFace" id="block37">37</div>
+						<div class="aFace" id="block38">38</div>
+							<div class="aFace" id="block39">39</div>
+								<div class="aFace" id="block40">40</div>
+									<div class="aFace" id="block41">41</div>
+										<div class="aFace" id="block42">42</div>
+											<div class="aFace" id="block43">43</div>
+												<div class="aFace" id="block44">44</div>
+				<!-- a Cube Face -->
+				<div class="aFace" id="block45">45</div>
+					<div class="aFace" id="block46">46</div>
+						<div class="aFace" id="block47">47</div>
+							<div class="aFace" id="block48">48</div>
+								<div class="aFace" id="block49">49</div>
+									<div class="aFace" id="block50">50</div>
+										<div class="aFace" id="block51">51</div>
+											<div class="aFace" id="block52">52</div>
+												<div class="aFace" id="block53">53</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	
+	<div id="console"></div>
+	<div class="UI">
+		<button class="button" id="upBtn" 
+				type="button" 
+				onclick="rotateCubeUp()">Up</button>
+	
+		<button class="button" id="rightBtn" 
+				type="button" 
+				onclick="rotateCubeRight()">Right</button>
+	
+		<button class="button" id="leftBtn" 
+				type="button" 
+				onclick="rotateCubeLeft()">Left</button>
+	
+		<button class="button" id="downBtn" 
+				type="button" 
+				onclick="rotateCubeDown()">Down</button>	
+		
+		<button id="zoomIn" 
+				type="button" 
+				onclick="zoomIn()"> + </button>
+		
+		<button id="zoomOut" 
+				type="button" 
+				onclick="zoomOut()"> - </button>
+		
+	</div>
+	<div id="info">Project Under Development<br>Coded / Designed by Kevin Groundwater - 25/02/2015 </div>
+	<div id="background"></div>
+</body>
+	<script src="CubeScript.js"></script>
+</html>
+

@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Navigation Menu Module</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="NavMenuCSS.css" rel="stylesheet" type="text/css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="NavMenuScript.js"></script>
+
+<style>
+
+</style>
+
+</head>
+<body>
+<div id="moduleContainer">
+	<div id="titleContainer">
+		<h1 class="titleText"><strong id="titleText1" >Designs / Code</strong><br><strong id="titleText2">Test Site</strong></h1>
+	</div>
+
+	<div class="interactiveObject" id="outputTextBox">
+		<div style="border: 1px solid rgb(0,0,0)">
+			<caption><strong>Function Testing Output</strong></caption>
+			<br>
+			<table>	
+				<tr><td>Mouse Button:</td><td id="0"></td></tr>
+				<tr><td>Click (x/y):</td><td id="1"></td></tr>
+			</table>	
+			<br>
+			<table>	
+				<tr><td>Click Target:</td><td id="2"></td></tr>
+				<tr><td>BorderStyle:</td><td id="3"></td></tr>
+				<tr><td>BorderWidth:</td><td id="4"></td></tr>
+				<tr><td>BorderColour:</td><td id="5"></td></tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="columnsContainer" id="colContainer1">
+		
+		<div class="headerContainer" id="btnHeader">
+			<h2><span id="btnHeader1">Button</span><span id="btnHeader2">&lt;Style&gt;</span></h2>
+		</div>
+		
+		<div class="containerColumn1">
+			
+			<div class="formContainer" id="formButtonSettings">
+				
+				<form id="formButtonStyles">
+					
+					<div class="formRow">
+						<div class="fieldHeader">
+							<span><strong>Size</strong></span>
+						</div>
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="buttonSizeX" 
+									id="inputFieldName">Width:</label>
+						</div>	
+						
+						<div class="column2">
+							<input 	type="range" min="10" max="200" step="2" value="10"
+									id="buttonSizeX"
+									onchange="setButtonSize(this.value, this.id, 'x')"/>
+						</div>
+						
+						<div class="column3">
+						
+							<span><strong id="buttonSizeXText">10</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+	
+						<div class="column1">
+							<label 	for="buttonSizeY" 
+									id="inputFieldName">Height:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="10" max="200" step="2" value="10"
+									id="buttonSizeY"
+									onchange="setButtonSize(this.value, this.id, 'y')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="buttonSizeYText">10</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow"><!--Empty Row Spacer--></div>
+					
+					<div class="formRow">
+						<div class="fieldHeader">
+							<span><strong>Shape</strong></span>
+						</div>
+					</div>
+					
+					<div class="formRow" id="whichCorners">
+						
+						<div class="column1">
+							<label 	for="whichCorners" 
+									id="inputFieldName">Corners:</label>
+						</div>	
+						
+						<div class="column2">
+							<input	type="checkbox" value="1" 
+									id="cornerTL">
+									<label 	for="cornerTL"
+											class="checkBoxText">Top Left</label>
+									<br>
+							<input	type="checkbox" value="1" 
+									id="cornerBL">
+									<label 	for="cornerBL"
+											class="checkBoxText">Bottom Left</label>
+							
+							<div 	id="shapeDisplay">
+							</div>
+						</div>
+						
+						<div class="column3">
+							<input	type="checkbox" value="1" 
+									id="cornerTR">
+									<label 	for="cornerTR"
+											class="checkBoxText">Top Right</label>
+									<br>
+							<input	type="checkbox" value="0" 
+									id="cornerBR">
+									<label 	for="cornerBR"
+											class="checkBoxText">Bottom Right</label>
+						</div>
+						
+					</div>
+					
+					<div class="spacerRow"><div class="formRow"><!--Empty Row Spacer--></div></div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="cornerRadius" 
+									id="inputFieldName">Round:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="200" step="1" value="0"
+									id="cornerRadius"
+									onchange="updateButtonCorners(this.value)"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="cornerRadiusText">0</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow"><!--Empty Row Spacer--></div>
+					
+					<div class="formRow">
+						
+						<div class="fieldHeader">
+							<span><strong>Colour</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="colourWhichElement" 
+									id="inputFieldName">Element:</label>
+						</div>
+						
+						<div class="column2">
+							<select class="selectDropdown"
+									form="form"
+									id="colourWhichElement"
+									onchange="resetColourValues()"/>
+							
+								<option selected="selected"
+										value="0">Button Colour</option>
+								
+								<option value="1">Border Colour</option>
+								<!--Append colourWhichElement options-->
+								
+								
+							</select>
+						</div>
+						
+						<div class="column3">
+							<div id="colourDisplay"></div>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfRed" 
+									id="inputFieldName">Red:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfRed"
+									onchange="updateColourValue(this.id, 'red')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfRedText">256</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfGreen" 
+									id="inputFieldName">Green:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfGreen"
+									onchange="updateColourValue(this.id, 'green')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfGreenText">256</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfBlue" 
+									id="inputFieldName">Blue:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfBlue"
+									onchange="updateColourValue(this.id, 'blue')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfBlueText">256</strong></span>
+						</div>
+					
+					</div>
+					
+				</form>
+				
+			</div>
+			
+		</div>
+
+		<div class="containerColumn2">
+			
+			<div class="formContainer" id="formButtonSettings2">
+				
+				<form id="formButtonStyles">
+					
+					<div class="formRow">
+						<div class="fieldHeader">
+							<span><strong>more options</strong></span>
+						</div>
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="buttonSizeX" 
+									id="inputFieldName">:</label>
+						</div>	
+						
+						<div class="column2">
+							<input 	type="range" min="10" max="200" step="2" value="10"
+									id="buttonSizeX"
+									onchange="setButtonSize(this.value, this.id, 'x')"/>
+						</div>
+						
+						<div class="column3">
+						
+							<span><strong id="buttonSizeXText">10</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+	
+						<div class="column1">
+							<label 	for="buttonSizeY" 
+									id="inputFieldName">Height:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="10" max="200" step="2" value="10"
+									id="buttonSizeY"
+									onchange="setButtonSize(this.value, this.id, 'y')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="buttonSizeYText">10</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow"><!--Empty Row Spacer--></div>
+					
+					<div class="formRow">
+						<div class="fieldHeader">
+							<span><strong>Button Shape</strong></span>
+						</div>
+					</div>
+					
+					<div class="formRow" id="whichCorners">
+						
+						<div class="column1">
+							<label 	for="whichCorners" 
+									id="inputFieldName">Corners:</label>
+						</div>	
+						
+						<div class="column2">
+							<input	type="checkbox" value="1" 
+									id="cornerTL">
+									<label 	for="cornerTL"
+											class="checkBoxText">Top Left</label>
+									<br>
+							<input	type="checkbox" value="1" 
+									id="cornerBL">
+									<label 	for="cornerBL"
+											class="checkBoxText">Bottom Left</label>
+						</div>
+						
+						<div class="column3">
+							<input	type="checkbox" value="1" 
+									id="cornerTR">
+									<label 	for="cornerTR"
+											class="checkBoxText">Top Right</label>
+									<br>
+							<input	type="checkbox" value="0" 
+									id="cornerBR">
+									<label 	for="cornerBR"
+											class="checkBoxText">Bottom Right</label>
+						</div>
+						
+					</div>
+					
+					<div class="spacerRow"><div class="formRow"><!--Empty Row Spacer--></div></div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="cornerRadius" 
+									id="inputFieldName">Round:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="200" step="1" value="0"
+									id="cornerRadius"
+									onchange="updateButtonCorners(this.value)"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="cornerRadiusText">0</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow"><!--Empty Row Spacer--></div>
+					
+					<div class="formRow">
+						
+						<div class="fieldHeader">
+							<span><strong>Button Colour (RGB Values)</strong></span>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="colourWhichElement" 
+									id="inputFieldName">Element:</label>
+						</div>
+						
+						<div class="column2">
+							<select class="selectDropdown"
+									form="form"
+									id="colourWhichElement"
+									onchange="resetColourValues()"/>
+							
+								<option selected="selected"
+										value="0">Button Colour</option>
+								
+								<option value="1">Border Colour</option>
+								<!--Append colourWhichElement options-->
+								
+								
+							</select>
+						</div>
+						
+						<div class="column3">
+							<div id="colourDisplay"></div>
+						</div>
+						
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfRed" 
+									id="inputFieldName">Red:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfRed"
+									onchange="updateColourValue(this.id, 'red')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfRedText">256</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfGreen" 
+									id="inputFieldName">Green:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfGreen"
+									onchange="updateColourValue(this.id, 'green')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfGreenText">256</strong></span>
+						</div>
+					
+					</div>
+					
+					<div class="formRow">
+						
+						<div class="column1">
+							<label 	for="valueOfBlue" 
+									id="inputFieldName">Blue:</label>
+						</div>
+						
+						<div class="column2">
+							<input 	type="range" min="0" max="256" step="1" value="256"
+									id="valueOfBlue"
+									onchange="updateColourValue(this.id, 'blue')"/>
+						</div>
+						
+						<div class="column3">
+							<span><strong id="valueOfBlueText">256</strong></span>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>			
+	</div>
+	<div class="interactiveObject" id="buttonPreviewElementsContainer">
+		<div id="buttonExampleHeader">
+			<h2>Button Example</h2>
+		</div>
+				
+		<div class="visualContainer" id="buttonPreviewContainer">
+				
+			<div id="exampleButtonContainer">
+				<button	class="menuButton" id="exampleButton" 
+						type="button">Example Button</button>
+			</div>			
+		</div>
+	</div>
+</div>
+</body>
+</html>
+

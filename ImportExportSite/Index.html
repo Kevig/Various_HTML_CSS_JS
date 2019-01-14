@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"lang="en" xml:lang="en"/>
+
+<head>
+	<!--Coding / Design - KevinGroundwater-->
+	<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+<style type="text/css">
+
+body 
+{
+	font-family: "Helvetica","Arial",sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 500;
+}
+
+#page
+{
+	width: 1024px;
+	margin: 0 auto;
+}
+
+#companyTitle
+{
+	height: 100px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	padding-left: 40px;
+	padding-top: 5px;
+}
+
+#companyTitle h1
+{
+	font-size: 48pt;
+	color: #ff9900;
+	margin: 0px;
+	margin-top: 20px;
+}
+
+
+#menuBar
+{
+	height: 100px;
+	width: 1024px;
+	margin-bottom: 10px;
+	padding-left: 420px;
+	background-color: #ff9900;
+}
+
+#menuBar ul 
+{
+	list-style-type: none;
+	margin: 0px;
+	height: 100px;
+	padding-left: 10px;
+}
+
+#menuBar li
+{
+	float: left;
+}
+
+#menuBar li a
+{
+	display: block;
+	color: white;
+	text-align: center;
+	width: 115px;
+	height: 95px;
+	padding-top: 25px;
+	font-size: 14pt;
+	text-decoration: none;
+	margin-top: 5px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+#menuBar li a:hover
+{
+	background-color: #ff6600;
+}
+
+#container
+{
+	position: relative;
+	width: 1024px;
+}
+
+#leftColumn
+{
+	position: absolute;
+	top: -60px;
+	width: 420px;
+	height: 1000%;
+}
+
+#rightColumn
+{
+	position: absolute;
+	left: 421px;
+	width: 590px;
+	padding-left: 20px;
+}
+
+#bottomBar
+{
+	height: 30px;
+	border-top: 3px solid #e6e6e6;
+}
+
+#imageContainer
+{
+	position: absolute;
+	top: -75px;
+	left: -40px;
+	width: 500px;
+	height: 500px;
+	margin: 0 auto;
+}
+
+#imageContainerBorder
+{
+	position: absolute;
+	top: -25px;
+	left: 10px;
+	width: 400px;
+	height: 400px;
+	border-radius: 50%;
+	border: 1px solid white;
+	background-color: white;
+}
+
+#homePage { }
+#servicesPage { }
+#productsPage { }
+#contactPage { }
+#aboutPage { }
+
+.subTitle
+{
+	height: 30px;
+	text-align: center;
+	font-size: 18pt;
+	margin-top: 10px;
+}
+
+.subTitle h2
+{
+	padding-top: 5px;
+	margin: 0px;
+}
+
+.itemContainer
+{
+	position: relative;
+	width: 535px;
+	border: 2px solid #e6e6e6;
+	border-radius: 5px;
+	background-color: #e6e6e6;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+
+#homePage .itemContainer
+{
+	height: 500px;
+}
+
+#servicesPage .itemContainer
+{
+	height: 500px;
+	background-color: white;
+	border: none;
+}
+
+#servicesPage .itemContainer ol { }
+
+#servicesPage .itemContainer ol li
+{
+	margin-top: 10px;
+}
+
+#productsPage .itemContainer
+{
+	height: 155px;
+}
+
+#contactPage .itemContainer
+{
+	height: 500px;
+	background-color: white;
+	border: none;
+}
+
+#contactPage .itemContainer h3
+{
+	margin-top: 30px;
+	text-align: center;
+	padding-top: 5px;
+}
+
+#aboutPage .itemContainer /* TEMP */
+{
+	height: 500px;
+}
+
+#contactPage .itemContainer form 
+{
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 5px;
+	padding-right: 40px;
+}
+
+#contactPage .itemContainer form p
+{	
+	float: right;
+	margin-bottom: 5px;
+}
+
+#contactPage .itemContainer form p label
+{	
+	margin-bottom: 0px;
+}
+
+#productsPage .itemContainer .item
+{
+	position: absolute;
+	top: 5px;
+	left: 105px;
+	width: 420px;
+	height: 140px;
+	border-radius: 0px 5px 5px 0px;
+	background-color: white;
+	font-size: 10pt;
+}
+
+#productsPage .itemContainer .tab
+{
+	position: relative;
+	margin: 5px;
+	width: 95px;
+	height: 140px;
+	background-color: #ff9900;
+	border-radius: 5px 0px 0px 5px;
+	color: white;
+	text-align: center;
+	font-size: 16pt;
+}
+
+#productsPage .itemContainer .tab:hover
+{
+	background-color: #ff6600;
+	cursor: pointer;
+}
+
+#productsPage .itemContainer .tab p
+{
+	margin-top: 0px;
+	padding-top: 10px;
+}
+
+#productsPage .itemContainer .item h3
+{
+	margin-top: 10px;
+	margin-bottom: 15px;
+	padding-left: 10px;
+}
+
+#productsPage .itemContainer .item ul
+{
+	margin-left: 50px;
+}
+
+</style>
+
+<title>Copper Trading</title>
+
+</head>
+
+<body>
+
+<div id="page">
+
+	<div id="companyTitle">
+		<h1>Company Name</h1>
+	</div>
+	
+	<div id="menuBar">
+		<ul>
+			<li><a id="menuHome" href="#Home">Home</a></li>
+			<li><a id="menuServices" href="#Services">Services</a></li>
+			<li><a id="menuProducts" href="#Products">Products</a></li>
+			<li><a id="menuContact" href="#Contact Us">Contact Us</a></li>
+			<li><a id="menuAbout" href="#About Us">About Us</a></li>
+		</ul>
+	</div>
+
+	<div id="container">
+	
+		<div id="leftColumn">
+
+			<div style="opacity: 0.4; position: absolute; top: 115px; left: 20px; width: 380px; padding-top: 340px; background-color: #f2f2f2; border-radius: 5px;">
+				<p style="text-align: center; color: black;">Contact Numbers:</p>
+				<p style="text-align: center; color: black;">Landline: +44 0000 000000
+				</br>&nbsp; Mobile: +44 0000 000000</p>
+				
+				<p></p>
+				
+				<p style="width: 175px; margin: 0 auto;">
+					<span class="fa fa-facebook" style="border-radius: 5px; text-align: center; width: 40px; padding: 5px; font-size: 24pt; border: 1px solid black;"></span>
+					<span class="fa fa-twitter" style="border-radius: 5px; text-align: center; width: 40px; padding: 5px; font-size: 24pt; border: 1px solid black;"></span>
+					<span class="fa fa-skype" style="border-radius: 5px; text-align: center; width: 40px; padding: 5px; font-size: 24pt; border: 1px solid black;"></span>
+					<span class="fa fa-linkedin" style="border-radius: 5px; text-align: center; width: 40px; padding: 5px; font-size: 24pt; border: 1px solid black;"></span>
+				</p>
+				
+				<p></p>
+				<p style="text-align: center; color: black;">Place Holder for Accreditation Badges for credibility</p>
+			</div>
+			
+			<div id="imageContainerBorder"></div>
+			<img id="imageContainer" src="dockImage1.png" alt="Asian Docks at Night"></img>
+			
+		</div>
+	
+		<div id="rightColumn">
+			
+			<!-- Content -->
+			<div id="homePage">
+				
+				<div class="subTitle">
+					<h1 style="display: none;">Home</h1>
+				</div>
+				
+				<div class="itemContainer">
+				
+				</div>
+				
+			</div>
+			
+			<!-- Content -->
+			<div id="servicesPage">
+				<div class="subTitle">
+					<h1 style="display: none;">Our Services</h1>
+				</div>
+				
+				<div class="itemContainer">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<h3 style="margin-top: 75px;">Our Policy</h3></br>
+					<ol type="1">
+						<li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</li>
+						<li>Nemo enim ipsam voluptatem.</li>
+						<li>Ut enim ad minima veniam, quis nostrum exercitationem.</li>
+						<li>Quis autem vel eum iure reprehenderit qui in ea voluptate.</li>
+						<li>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</li>
+						<li>Et harum quidem rerum facilis est et expedita distinctio.</li>
+						<li>Lorem ipsum dolor sit amet, vis diam regione ne, postea epicuri corrumpit te sea.</li>
+						<li>Est ei sale equidem perfecto, dicat suavitate definitiones eos no, ludus tation putent ei sit.</li>
+					</ol>
+				</div>
+				
+			</div>
+			
+			<!-- Content -->
+			<div id="productsPage">
+				
+				<div class="subTitle">
+					<!--<h2>Products</h2>-->
+				</div>
+			
+				<div class="itemContainer">
+					<div class="tab" id="tab1">
+						<p>Pipe</p>
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</div>
+					<div class="item">
+						<h3>Product Description</h3>
+						<ul>
+						<li>Sed ut perspiciatis, unde omnis iste.</li>
+						<li>Natus error sit voluptatem accusantium.</li>
+						<li>Doloremque laudantium, totam rem aperiam.</li>
+						<li>Quis autem vel eum iure reprehenderit.</li>
+						</ul>
+					</div>
+					<img class="item" id="copperPipes" src="CopperPipes.png" alt="Copper Pipes"></img>
+				</div>
+				
+				<div class="itemContainer">
+					<div class="tab" id="tab2">
+						<p>Sheet</p>
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</div>
+					<div class="item">
+						<h3>Product Description</h3>
+						<ul>
+						<li>Sed ut perspiciatis, unde omnis iste.</li>
+						<li>Natus error sit voluptatem accusantium.</li>
+						<li>Doloremque laudantium, totam rem aperiam.</li>
+						<li>Quis autem vel eum iure reprehenderit.</li>
+						</ul>
+					</div>
+					<img class="item" id="copperSheets" src="CopperSheets.png" alt="Copper Sheets"></img>
+				</div>
+				
+				<div class="itemContainer">
+					<div class="tab" id="tab3">
+						<p>Wire</p>
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</div>
+					<div class="item">
+						<h3>Product Description</h3>
+						<ul>
+						<li>Sed ut perspiciatis, unde omnis iste.</li>
+						<li>Natus error sit voluptatem accusantium.</li>
+						<li>Doloremque laudantium, totam rem aperiam.</li>
+						<li>Quis autem vel eum iure reprehenderit.</li>
+						</ul>
+					</div>
+					<img class="item"id="copperWires" src="CopperWire.png" alt="Copper Wire"></img>
+				</div>
+			
+			</div>
+			
+			<!-- Content -->
+			<div id="contactPage">
+				
+				<div class="subTitle">
+					<!--<h2>Contact Us</h2>-->
+				</div>
+				
+				<div class="itemContainer">
+					
+					<p> You may contact us via email using the form below, please provide at least one contact method of email or a telephone number. Please allow up to 24 hours for a response.</p>
+					<p> Alternatively you may contact us via Twitter, Facebook or Phone using the provided <u>Links</u> to the left.</p>
+					<div style="background-color: #f2f2f2; border-radius: 5px; margin: 0 auto;">
+						<h3>Contact Form</h3>
+
+							<form action="MAILTO:someone@anEmail.com" method="post" enctype="text/plain">
+								
+								<p>
+									<label for="formName">Name: </label></br>
+									<input id="formName" type="text" name="name" value="" style="width: 225px;"/>
+								</p>
+								
+								<p>
+									<label for="formEmail">Email: </label></br>
+									<input id="formEmail" type="text" name="email" value="" style="width: 225px;"/>
+								</p>
+							
+								<p>
+									<label for="formPhone">Phone: </label></br>
+									<input id="formPhone" type="text" name="phone" value = "" style="width: 225px;"/>
+								</p>
+								
+								<p>
+									<label for="formMessage" style="display: block;">Enquiry:</label>
+									<textarea id="formMessage" type="text" name="message" value="" rows="5" cols="25" style="width: 225px; resize: none;"> </textarea>
+								</p>
+								
+								<p>
+									<input type="submit" value="Submit" >
+									<input type="reset" value="Reset" >
+								</p>
+								
+							</form>
+			
+					</div>
+				</div>
+				
+			</div>
+			
+			<!-- Content -->
+			<div id="aboutPage">
+				
+				<div class="subTitle">
+					<!--<h2>About Us</h2>-->
+				</div>
+				
+				<div class="itemContainer">
+				
+				</div>
+				
+			</div>
+		
+		</div>
+	
+	</div>
+	<!--
+	<div id="bottomBar">
+	</div>-->
+	
+</div>
+
+<script type="text/javascript">
+
+var currentPage = 0;
+var lock = false;
+
+$( document ).ready(function() {
+
+	$("#homePage").hide();
+	$("#servicesPage").hide();
+	$("#productsPage").hide();
+	$("#contactPage").hide();		
+	$("#aboutPage").hide();
+	
+	loadPage("home");
+});
+
+$( "#tab1" ).click(function() {
+	$( "#copperPipes" ).toggle( "slide", { direction: "right", duration: 800 });
+	$( "#copperSheets" ).show( "slide", { direction: "right", duration: 800 });
+	$( "#copperWires" ).show( "slide", { direction: "right", duration: 800 });
+});
+
+$( "#tab2" ).click(function() {
+	$( "#copperSheets" ).toggle( "slide", { direction: "right", duration: 800 });
+	$( "#copperWires" ).show( "slide", { direction: "right", duration: 800 });
+	$( "#copperPipes" ).show( "slide", { direction: "right", duration: 800 });
+});
+
+$( "#tab3" ).click(function() {
+	$( "#copperWires" ).toggle( "slide", { direction: "right", duration: 800 });
+	$( "#copperPipes" ).show( "slide", { direction: "right", duration: 800 });
+	$( "#copperSheets" ).show( "slide", { direction: "right", duration: 800 });
+});
+
+$( "#menuHome" ).click(function() {
+	if(!lock)
+	{
+		closePage();
+		loadPage("home");
+	}
+});
+
+$( "#menuServices" ).click(function() {
+	if(!lock)
+	{
+		closePage();
+		loadPage("services");
+	}
+});
+
+$( "#menuProducts" ).click(function() {
+	if(!lock)
+	{
+		closePage();
+		loadPage("products");
+	}
+});
+
+$( "#menuContact" ).click(function() {
+	if(!lock)
+	{
+		closePage();
+		loadPage("contact");
+	}
+});
+
+$( "#menuAbout" ).click(function() {
+	if(!lock)
+	{
+		closePage();
+		loadPage("about");
+	}
+});
+
+function revertMenuHighlights()
+{
+	$( "#menuProducts" ).css("background-color", "#ff9900" );
+	$( "#menuHome" ).css("background-color", "#ff9900" );
+	$( "#menuServices" ).css("background-color", "#ff9900" );
+	$( "#menuContact" ).css("background-color", "#ff9900" );
+	$( "#menuAbout" ).css("background-color", "#ff9900" );
+}
+
+function closePage()
+{
+	revertMenuHighlights();
+	
+	switch(currentPage)
+	{
+		case 0:
+			$("#homePage").hide();
+		break;
+		
+		case 1:
+			$("#servicesPage").hide();
+		break;
+		
+		case 2:
+			$( "#productsPage" ).hide();
+			$( "#copperSheets" ).show();
+			$( "#copperWires" ).show();
+			$( "#copperPipes" ).show();
+		break;
+		
+		case 3:
+			$("#contactPage").hide();
+		break;
+		
+		case 4:
+			$("#aboutPage").hide();
+		break;
+	}
+}
+
+function loadPage(e)
+{
+	lock = true; // Lock out 'button spam' to reduce animation glitches
+	switch(e)
+	{
+		case "home":
+			$( "#homePage" ).show( "slide", { 
+				direction: "up", 
+				duration: 1000, 
+				complete: function() {
+					lock = false;
+				}
+			} );
+			
+			$( "#menuHome" ).css("background-color", "#ff6600" );
+			currentPage = 0;
+		break;
+		
+		case "services":
+			$( "#servicesPage" ).show( "slide", { 
+				direction: "up", 
+				duration: 1000, 
+				complete: function() {
+					lock = false;
+				}
+			} );
+			
+			$( "#menuServices" ).css("background-color", "#ff6600" );
+			currentPage = 1;
+		break;
+		
+		case "products":
+			$( "#productsPage" ).show( "slide", { 
+				direction: "up", 
+				duration: 1000, 
+				complete: function() {
+					lock = false;
+				} 
+			} );
+			
+			$( "#menuProducts" ).css("background-color", "#ff6600" );
+			currentPage = 2;
+		break;
+		
+		case "contact":
+			$( "#contactPage" ).show( "slide", { 
+				direction: "up", 
+				duration: 1000, 
+				complete: function() {
+					lock = false;
+				} 
+			} );
+			
+			$( "#menuContact" ).css("background-color", "#ff6600" );
+			currentPage = 3;
+		break;
+		
+		case "about":
+			$( "#aboutPage" ).show( "slide", { 
+				direction: "up", 
+				duration: 1000, 
+				complete:  function() {
+					lock = false;
+				} 
+			} );
+			
+			$( "#menuAbout" ).css("background-color", "#ff6600" );
+			currentPage = 4;
+		break;
+	}
+}
+
+</script>
+
+</body>
+
+</html>

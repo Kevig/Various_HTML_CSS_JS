@@ -1,0 +1,216 @@
+
+#info{
+position: Absolute;
+height: 40px;
+width: 500px;
+top: 505px;
+}
+
+#background {
+position: absolute;
+width: 505px;
+height: 505px;
+top: 0px;
+left: 0px;
+background-color: black;
+z-index: -1;
+}
+
+.UI {
+position: absolute;
+width: 300px;
+height: 250px;
+top: 125px;
+left: 525px;
+border: 1px solid black;
+}
+
+.button {
+position: absolute;
+width: 50px;
+height: 50px;
+}
+
+#console {
+position: absolute;
+width: 300px;
+height: 100px;
+border: 1px solid black;
+left: 525px;
+}
+
+#upBtn {
+top: 50px;
+left: 50px;
+}
+
+#downBtn {
+top: 150px;
+left: 50px;
+}
+
+#rightBtn {
+top: 100px;
+left: 99px;
+}
+
+#leftBtn {
+top: 100px;
+left: 1px;
+}
+
+#zoomIn {
+position: absolute;
+top: 5px;
+left: 5px;
+width: 25px;
+height: 25px;
+}
+
+#zoomOut{
+position: absolute;
+top: 35px;
+left: 5px;
+width: 25px;
+height: 25px;
+}
+
+.container {
+position:absolute;
+left:0px;
+top:0px;
+width:501px;
+height: 501px;
+border: 1px solid black;
+transform-style: preserve-3d;
+perspective: 1000px;
+}
+
+.aFace{
+position: absolute;
+width: 96px;
+height: 96px;
+opacity: 0.8;
+border: 2px solid black;
+transform-style: preserve-3d;
+}
+
+#dist {
+position: absolute;
+width: 300px;
+height: 300px;
+left: 100px;
+top: 250px;
+transform: rotateY(0deg) rotateX(-10deg) translateZ(-500px);
+transform-style: preserve-3d;
+}
+
+#cube {
+position: absolute;
+width: 300px;
+height: 300px;
+left: 0px;
+top: 0px;
+transform: rotateY(0deg) rotateX(0deg) translateZ(0px);
+transform-style: preserve-3d;
+}
+
+#hCube {
+position: absolute;
+width: 300px;
+height: 300px;
+left: 0px;
+top: 0px;
+transform: rotateY(0deg) rotateX(90deg) translateZ(0px);
+transform-style: preserve-3d;
+}
+
+#yCube {
+position: absolute;
+width: 300px;
+height: 300px;
+left: 0px;
+top: 0px;
+transform: rotateY(90deg) rotateX(0deg) translateZ(0px);
+transform-style: preserve-3d;
+}
+
+/* All block elements css added for future updates / modifications
+
+/* Front Face on init */
+#block0 {top: 0px;left: 0px;background-color: blue;}
+	#block1 {top: 0px;left: 100px;background-color: blue;}
+		#block2 {top: 0px;left: 200px;background-color: blue;}
+
+			#block3 {top: 100px;left: 0px;background-color: blue;}
+				#block4 {top: 100px;left: 100px;background-color: blue;}
+					#block5 {top: 100px;left: 200px;background-color: blue;}
+
+						#block6 {top: 200px;left: 0px;background-color: blue;}
+							#block7 {top: 200px;left: 100px;background-color: blue;}
+								#block8 {top: 200px;left: 200px;background-color: blue;}
+
+/* Back Face on init */
+#block9 {top: 0px;left: 0px;background-color: orange;}
+	#block10 {top: 0px;left: 100px;background-color: orange;}
+		#block11 {top: 0px;left: 200px;background-color: orange;}
+
+			#block12 {top: 100px;left: 0px;background-color: orange;}
+				#block13 {top: 100px;left: 100px;background-color: orange;}
+					#block14 {top: 100px;left: 200px;background-color: orange;}
+
+						#block15 {top: 200px;left: 0px;background-color: orange;}
+							#block16 {top: 200px;left: 100px;background-color: orange;}
+								#block17 {top: 200px;left: 200px;background-color: orange;}
+
+/* Top Face on init */
+#block18 {top: 0px;left: 0px;background-color: red;}
+	#block19 {top: 0px;left: 100px;background-color: red;}
+		#block20 {top: 0px;left: 200px;background-color: red;}
+
+			#block21 {top: 100px;left: 0px;background-color: red;}
+				#block22 {top: 100px;left: 100px;background-color: red;}
+					#block23 {top: 100px;left: 200px;background-color: red;}
+
+						#block24 {top: 200px;left: 0px;background-color: red;}
+							#block25 {top: 200px;left: 100px;background-color: red;}
+								#block26 {top: 200px;left: 200px;background-color: red;}
+
+/* Bottom Face on init */
+#block27 {top: 0px;left: 0px;background-color: purple;}
+	#block28 {top: 0px;left: 100px;background-color: purple;}
+		#block29 {top: 0px;left: 200px;background-color: purple;}
+
+			#block30 {top: 100px;left: 0px;background-color: purple;}
+				#block31 {top: 100px;left: 100px;background-color: purple;}
+					#block32 {top: 100px;left: 200px;background-color: purple;}
+
+						#block33 {top: 200px;left: 0px;background-color: purple;}
+							#block34 {top: 200px;left: 100px;background-color: purple;}
+								#block35 {top: 200px;left: 200px;background-color: purple;}
+
+/* Right Face on init */
+#block36 {top: 0px;left: 0px;background-color: White;}
+	#block37 {top: 0px;left: 100px;background-color: White;}
+		#block38 {top: 0px;left: 200px;background-color: White;}
+
+			#block39 {top: 100px;left: 0px;background-color: White;}
+				#block40 {top: 100px;left: 100px;background-color: White;}
+					#block41 {top: 100px;left: 200px;background-color: White;}
+
+						#block42 {top: 200px;left: 0px;background-color: White;}
+							#block43 {top: 200px;left: 100px;background-color: White;}
+								#block44 {top: 200px;left: 200px;background-color: White;}
+
+/* Left Face on init */
+#block45 {top: 0px;left: 0px;background-color: green;}
+	#block46 {top: 0px;left: 100px;background-color: green;}
+		#block47 {top: 0px;left: 200px;background-color: green;}
+
+			#block48 {top: 100px;left: 0px;background-color: green;}
+				#block49 {top: 100px;left: 100px;background-color: green;}
+					#block50 {top: 100px;left: 200px;background-color: green;}
+
+						#block51 {top: 200px;left: 0px;background-color: green;}
+							#block52 {top: 200px;left: 100px;background-color: green;}
+								#block53 {top: 200px;left: 200px;background-color: green;}

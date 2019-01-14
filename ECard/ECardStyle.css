@@ -1,0 +1,17 @@
+body { background: radial-gradient(ellipse at center, rgba(252,252,252,1) 0%, rgba(255,255,255,1) 47%, rgba(235,235,235,1) 100%);}
+#mainContainer { perspective: 1000px;  }
+#cardContainer { width: 600px; height: 600px; margin: 0 auto; margin-top: 50px; transform: rotateX(30deg);}
+.card { width: 600px; height: 300px; border: 2px solid black; box-shadow: -2px 5px 10px grey; transform: rotateX(30deg);}
+#backCard {position: absolute; background-color: white; top: 10px; transform: rotateZ(-20deg);}
+#frontCard {position: absolute; background-color: white; top: 100px; transform: rotateZ(-5deg);}
+#socialMediaLinks {position: absolute; width: 40px; height: 295px; padding-left: 20px; padding-top: 90px;}
+.fa {margin-top: 3px;}
+.fa:hover, .pageScroll:hover { cursor: pointer; }
+.companyTitle { position: absolute; width: 597px; height: 75px; text-align: center; padding-left: 35px; }
+.companyTitle h1 { }
+.contentContainer { position: absolute; top: 90px; left: 75px; width: 480px; height: 190px;  }
+.pageScroll { position: absolute; width: 60px; height: 60px; /* border: 3px solid black; border-radius: 50%; */ padding-top: 15px; text-align: center; margin-top: 140px;}
+#nextPage { left: 420px; }
+.content { position: absolute; left:60px; width: 360px; background-color: white; font-size: 12pt; text-align: center; padding-top: 30px; }
+.content ul { text-align: center; list-style-type: none; padding-left: 0px; padding-top: 60px; font-size: 14pt; }
+#nextPage, #previousPage span { font-size: 18pt; }
